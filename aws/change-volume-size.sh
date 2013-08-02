@@ -32,3 +32,9 @@ while ! ec2-describe-volumes $newvolumeid | grep -q attached; do sleep 1; done
 ec2-start-instances $instanceid
 while ! ec2-describe-instances $instanceid | grep -q running; do sleep 1; done
 ec2-describe-instances $instanceid
+
+ip=$(ec2-describe-instances i-a7b69ea4 | egrep "^INSTANCE" | cut -f18)
+
+echo "Please execute following commands!"
+echo "ssh $ip"
+echo "sudo resize2fs /dev/xvda1"
